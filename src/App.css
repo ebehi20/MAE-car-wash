@@ -1,0 +1,95 @@
+/* App.css */
+
+/* Firebase controls and status */
+.firebase-controls {
+  background-color: #f8fafc;
+  padding: 16px;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.initialize-firebase-btn {
+  background-color: #4f46e5;
+  color: white;
+  font-weight: 500;
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  align-self: flex-start;
+}
+
+.initialize-firebase-btn:hover {
+  background-color: #4338ca;
+}
+
+.initialize-firebase-btn:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.firebase-status {
+  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  background-color: #f3f4f6;
+  color: #4b5563;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 16px;
+  color: #6b7280;
+}
+
+.loading-spinner::after {
+  content: "";
+  width: 20px;
+  height: 20px;
+  margin-left: 12px;
+  border: 2px solid #e5e7eb;
+  border-top: 2px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error message */
+.error-message, .error-page {
+  padding: 16px;
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border-radius: 6px;
+  margin: 24px 0;
+  font-weight: 500;
+}
+
+.error-page {
+  margin: 48px;
+  padding: 24px;
+  text-align: center;
+  font-size: 18px;
+}
+
+/* No data states */
+.no-customers, .no-data {
+  padding: 24px;
+  text-align: center;
+  color: #6b7280;
+  background-color: #f9fafb;
+  border-radius: 6px;
+  margin: 16px 0;
+} 

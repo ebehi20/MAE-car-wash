@@ -1,0 +1,49 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+        firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    function isImage() {
+      return request.resource.contentType.matches('image/.*');
+    }
+    
+    function isValidFileSize() {
+      return request.resource.size < 5 * 1024 * 1024; // 5MB max
+    }
+
+    // Customer profile pictures
+    match /profiles/{userId}/{fileName} {
+      allow read: if true;
+      allow write: if isAuthenticated() && 
+        (request.auth.uid == userId || isAdmin()) &&
+        isImage() &&
+        isValidFileSize();
+    }
+
+    // Car photos
+    match /cars/{carId}/{fileName} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && isImage() && isValidFileSize();
+    }
+
+    // Service images
+    match /services/{serviceId}/{fileName} {
+      allow read: if true;
+      allow write: if isAdmin() && isImage() && isValidFileSize();
+    }
+
+    // Documents (receipts, invoices)
+    match /documents/{documentId}/{fileName} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+  }
+} 
